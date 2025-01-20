@@ -12,7 +12,7 @@
 
 #### 1 - Clonar repositório 
 ```bash
-git clone 
+git clone https://github.com/ftessmann/betalent-backend
 cd betalent-backend
 ```
 
@@ -39,7 +39,7 @@ Todas as variaveis de ambiente estão configuradas no docker-compose-yml
 
 #### 1 - Clonar repositório 
 ```bash
-git clone 
+git clone https://github.com/ftessmann/betalent-backend
 cd betalent-backend
 ```
 
