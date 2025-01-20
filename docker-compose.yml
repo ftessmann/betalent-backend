@@ -1,0 +1,52 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3333:3333"
+    environment:
+      TZ: UTC
+      PORT: 3333
+      HOST: localhost
+      LOG_LEVEL: info
+      APP_KEY: qPGUlLUZJoKXIIzrG61YFHWEW_VtL-vw
+      NODE_ENV: development
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: betalent
+      DB_DATABASE: betalentdb
+      LOGIN_EMAIL: dev@betalent.tech
+      LOGIN_TOKEN: FEC9BB078BF338F464F96B48089EB498
+      GATEWAY_AUTH_TOKEN: tk_f2198cc671b5289fa856
+      GATEWAY_AUTH_SECRET: 3d15e8ed6131446ea7e3456728b1211f
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - mysql
+      - payment-gateways
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: betalentdb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: betalent
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  payment-gateways:
+    image: matheusprotzen/gateways-mock
+    environment:
+      REMOVE_AUTH: 'true'
+    ports:
+      - "3001:3001"
+      - "3002:3002"
+
+volumes:
+  mysql-data:
